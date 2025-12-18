@@ -1,0 +1,595 @@
+/* Font and Body Defaults */
+body { 
+    font-family: 'Inter', sans-serif; 
+    -webkit-font-smoothing: antialiased; 
+}
+
+/* Step Panel Visibility Transitions */
+.step-panel {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.step-panel.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Smooth slide up animation for modals */
+@keyframes slideUp {
+    from { transform: translate(-50%, 100%); opacity: 0; }
+    to { transform: translate(-50%, 0); opacity: 1; }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Email Preview Reset */
+#email-preview-frame, #invoice-preview-frame {
+    width: 100%;
+    height: 100%;
+    border: none;
+    background: #f4f4f7;
+}
+
+/* Tour Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* AI Analysis Overlay */
+#ai-processing-overlay {
+    backdrop-filter: blur(8px);
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.processing-step {
+    opacity: 0.3;
+    transform: translateX(-10px);
+    transition: all 0.5s ease;
+}
+
+.processing-step.active {
+    opacity: 1;
+    transform: translateX(0);
+    color: #2563eb; /* blue-600 */
+    font-weight: 600;
+}
+
+.processing-step.done {
+    opacity: 1;
+    color: #059669; /* green-600 */
+}
+
+/* Enhanced Invoice Cards */
+.invoice-card-gradient {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Toggle Switch */
+.toggle-checkbox:checked {
+    right: 0;
+    border-color: #2563eb; /* blue-600 */
+}
+.toggle-checkbox:checked + .toggle-label {
+    background-color: #2563eb; /* blue-600 */
+}
+.toggle-checkbox:checked + .toggle-label:before {
+    transform: translateX(100%);
+}
+
+.toggle-label {
+    width: 44px;
+    height: 24px;
+    background-color: #e2e8f0; /* slate-200 */
+    border-radius: 9999px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in;
+}
+
+.toggle-label:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.2s ease-in;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Timeline Connector */
+.timeline-line {
+    position: absolute;
+    left: 24px; /* Half of icon width (48px) */
+    top: 48px;
+    bottom: -24px;
+    width: 2px;
+    background-color: #e2e8f0;
+    z-index: 0;
+}
+
+/* --- PREMIUM UI COMPONENTS --- */
+
+/* 1. iOS Style Toggle */
+.premium-toggle {
+    appearance: none;
+    width: 52px;
+    height: 30px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    border: 2px solid transparent;
+}
+.premium-toggle::after {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+.premium-toggle:checked {
+    background: #2563eb; /* Blue-600 */
+}
+.premium-toggle:checked::after {
+    transform: translateX(22px);
+}
+
+/* 2. Tactile Stepper (Number Input) */
+.stepper-container {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+.stepper-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    color: #64748b;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.stepper-btn:hover {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+.stepper-value {
+    width: 40px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 15px;
+    color: #0f172a;
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+/* 3. Visual Radio Cards (Email vs Phone) */
+.visual-radio:checked + .visual-card {
+    border-color: #2563eb;
+    background-color: #eff6ff; /* blue-50 */
+    color: #1d4ed8;
+}
+.visual-radio:checked + .visual-card .radio-circle-inner {
+    transform: scale(1);
+}
+.radio-circle-outer {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #cbd5e1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+.visual-radio:checked + .visual-card .radio-circle-outer {
+    border-color: #2563eb;
+}
+.radio-circle-inner {
+    width: 10px;
+    height: 10px;
+    background-color: #2563eb;
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* --- GLOBAL NAVIGATION --- */
+.nav-dropdown {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 0.5rem center;
+    background-repeat: no-repeat;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* --- STEP 6: INCOMING ISSUE ANIMATION --- */
+@keyframes slideInRight {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast-slide-in {
+    animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.pulse-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+    background-color: rgba(239, 68, 68, 0.6); /* Red-500 */
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(2.5); opacity: 0; }
+}
+
+/* --- FAKE EMAIL CLIENT STYLES --- */
+.mock-browser {
+    background: #f1f5f9;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    overflow: hidden;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.mock-header {
+    background: #e2e8f0;
+    padding: 8px 16px;
+    display: flex;
+    gap: 6px;
+    border-bottom: 1px solid #cbd5e1;
+}
+.mock-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+.email-client-sidebar {
+    background: #f8fafc;
+    width: 200px;
+    border-right: 1px solid #e2e8f0;
+    padding: 16px;
+    display: none; /* Hidden on mobile */
+}
+@media (min-width: 768px) {
+    .email-client-sidebar { display: block; }
+}
+
+.email-btn {
+    text-align: left;
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #475569;
+    font-size: 13px;
+    font-weight: 500;
+}
+.email-btn.active { background: #e0f2fe; color: #0284c7; }
+
+.typing-cursor::after {
+    content: '|';
+    animation: blink 1s step-start infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- STEP 3 DESIGN CONTROLS --- */
+
+/* Custom Range Slider */
+.slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 999px;
+    outline: none;
+    opacity: 0.7;
+    transition: opacity .2s;
+}
+.slider-thumb:hover { opacity: 1; }
+.slider-thumb::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: #2563eb;
+    cursor: pointer;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+    transition: box-shadow 0.2s;
+}
+.slider-thumb::-webkit-slider-thumb:hover {
+    box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.2);
+}
+
+/* Visual Option Cards (Small) */
+.option-card-sm {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    background: white;
+}
+.option-card-sm:hover { border-color: #93c5fd; }
+.option-input:checked + .option-card-sm {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+    color: #1d4ed8;
+    box-shadow: 0 0 0 1px #2563eb;
+}
+
+/* Tone Button Group */
+.tone-btn {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    background: white;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: #64748b;
+    transition: all 0.2s;
+}
+.tone-btn:first-child { border-radius: 8px 0 0 8px; }
+.tone-btn:last-child { border-radius: 0 8px 8px 0; border-left: none; }
+.tone-btn:not(:first-child):not(:last-child) { border-left: none; }
+
+.tone-btn.active {
+    background: #eff6ff;
+    color: #2563eb;
+    border-color: #2563eb;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- OVERVIEW & LAUNCHPAD --- */
+.checklist-item {
+    transition: all 0.2s;
+    border-left: 3px solid transparent;
+}
+.checklist-item.done {
+    border-left-color: #22c55e; /* Green-500 */
+    background: #f0fdf4; /* Green-50 */
+}
+.checklist-item.active {
+    border-left-color: #3b82f6; /* Blue-500 */
+    background: white;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+.checklist-item.pending {
+    opacity: 0.6;
+}
+
+.launch-btn {
+    background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+    box-shadow: 0 4px 14px 0 rgba(37, 99, 235, 0.39);
+}
+/* Ensure disabled state looks right with tailwind utility override */
+.launch-btn:disabled {
+    background: #cbd5e1 !important; /* Override gradient */
+    box-shadow: none !important;
+    transform: none !important;
+    cursor: not-allowed !important;
+}
+
+/* Victory Modal Animation */
+@keyframes popIn {
+    0% { transform: scale(0.8); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+.victory-modal {
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Simple confetti dots (CSS only approximation) */
+.confetti-dot {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: #fcd34d;
+    border-radius: 50%;
+    animation: fall 3s linear forwards;
+}
+@keyframes fall {
+    to { transform: translateY(200px); opacity: 0; }
+}
+
+/* --- DASHBOARD NAVIGATION --- */
+.app-nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 9999px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+.app-nav-link:hover {
+    background-color: #f1f5f9;
+    color: #0f172a;
+}
+.app-nav-link.active {
+    background-color: #eff6ff;
+    color: #2563eb;
+}
+
+/* --- BATCH TABLE ROW --- */
+.batch-row {
+    transition: background-color 0.1s;
+    cursor: pointer;
+}
+.batch-row:hover {
+    background-color: #f8fafc;
+}
+
+/* Fix for smashed layouts on smaller screens */
+.step-panel {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Ensure images/iframes don't overflow containers */
+iframe, img, video {
+    max-width: 100%;
+}
+
+/* Better mobile padding */
+@media (max-width: 768px) {
+    .step-panel {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        padding-bottom: 80px; /* Space for mobile scrolling */
+    }
+}
+
+/* Navigation Dropdown Animation */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-down {
+    animation: fadeInDown 0.2s ease-out forwards;
+}
+
+/* Ensure the nav sits above other content when dropdown is open */
+nav {
+    isolation: isolate;
+}
+
+/* --- ENHANCED DESIGN STUDIO --- */
+
+.tone-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+.tone-card {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+}
+
+.tone-card:hover {
+    border-color: #93c5fd; /* blue-300 */
+    background-color: #f8fafc;
+}
+
+.tone-card.active {
+    border-color: #2563eb; /* blue-600 */
+    background-color: #eff6ff; /* blue-50 */
+    box-shadow: 0 0 0 1px #2563eb;
+}
+
+.tone-card i {
+    font-size: 24px;
+    color: #94a3b8; /* slate-400 */
+    transition: color 0.2s;
+}
+
+.tone-card.active i {
+    color: #2563eb; /* blue-600 */
+}
+
+.tone-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #475569;
+}
+
+.tone-card.active .tone-label {
+    color: #1e40af; /* blue-800 */
+}
+
+/* --- JOURNEY BUILDER CANVAS --- */
+.journey-canvas {
+    background-color: #f8fafc;
+    background-image: radial-gradient(#cbd5e1 1px, transparent 1px);
+    background-size: 20px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.flow-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 24px;
+    width: 2px;
+    background: #e2e8f0;
+    z-index: 0;
+}
+
+.flow-node {
+    position: relative;
+    z-index: 10;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.flow-node:hover {
+    transform: translateX(4px);
+}
+
+.flow-node.active .node-card {
+    border-color: #2563eb;
+    box-shadow: 0 4px 6px -1px rgba(37, 99, 235, 0.1), 0 2px 4px -1px rgba(37, 99, 235, 0.06);
+    background-color: #eff6ff;
+}
+
+.flow-node.active .node-icon {
+    background-color: #2563eb;
+    color: white;
+    border-color: #2563eb;
+    transform: scale(1.1);
+}
+
+.node-card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+/* Channel Badge Styles */
+.badge-email { background: #dbeafe; color: #1e40af; }
+.badge-sms { background: #fce7f3; color: #9d174d; }
+.badge-call { background: #fef3c7; color: #92400e; }
+.badge-letter { background: #f1f5f9; color: #475569; }
