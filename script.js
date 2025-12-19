@@ -1,5 +1,6 @@
 // --- GLOBAL STATE ---
-let currentStep = 1;
+let currentStep = 0;
+let userSoftwareChoice = { name: '', type: '' }; // Stores Step 0 choice
 const totalSteps = 8;
 let selectedInvoiceData = {}; // Stores invoice picked in Step 4 for Step 5 visualization
 
@@ -182,7 +183,7 @@ function jumpDirectlyToStep(step) {
     if(target) target.classList.add('active');
     
     // Update progress bar
-    const percent = (step / totalSteps) * 100;
+    const percent = step === 0 ? 0 : (step / totalSteps) * 100;
     const progressBar = document.getElementById('progress-bar');
     const stepIndicator = document.getElementById('step-indicator');
     
@@ -1186,6 +1187,8 @@ function checkDeepLink() {
     const stepParam = params.get('step');
     
     const stepMap = {
+        'register': 0,
+        'login': 0,
         'financials': 1,
         'connect': 2,
         'upload': 2, 
@@ -1308,5 +1311,255 @@ function triggerDashboardAnimations() {
             }
         }
         requestAnimationFrame(step);
+    }
+}
+
+/* [INSERT AT END OF FILE] */
+
+// --- STEP 0: REGISTRATION LOGIC ---
+
+/* [REPLACE THE PREVIOUS filterSoftwareGate FUNCTION AT BOTTOM OF script.js] */
+
+function filterSoftwareGate(val) {
+    const dropdown = document.getElementById('gate-dropdown');
+    // Use the new simpler class 'gate-item'
+    const items = dropdown.querySelectorAll('.gate-item'); 
+    const value = val ? val.toLowerCase() : '';
+
+    dropdown.classList.remove('hidden');
+
+    items.forEach(item => {
+        const text = item.innerText.toLowerCase();
+        if (text.includes(value)) {
+            item.classList.remove('hidden');
+            item.classList.add('flex');
+        } else {
+            item.classList.add('hidden');
+            item.classList.remove('flex');
+        }
+    });
+}
+
+function selectSoftwareGate(name, type) {
+    const input = document.getElementById('inp-software-gate');
+    const dropdown = document.getElementById('gate-dropdown');
+    
+    // Store selection
+    input.value = name;
+    userSoftwareChoice = { name, type };
+    
+    // UI Feedback
+    if(dropdown) dropdown.classList.add('hidden');
+}
+
+function handleRegistration() {
+    const email = document.getElementById('inp-reg-email').value;
+    const software = document.getElementById('inp-software-gate').value;
+    const btn = document.getElementById('btn-register');
+
+    if(!email || !software) {
+        alert("Please select your software and enter your email.");
+        return;
+    }
+
+    // 1. Simulate API Call
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Creating...';
+    btn.classList.add('opacity-80', 'cursor-not-allowed');
+
+    setTimeout(() => {
+        // 2. Update Verification Screen Text
+        const verifyDisplay = document.getElementById('verify-email-display');
+        if(verifyDisplay) verifyDisplay.innerText = email;
+
+        // 3. Move to Verification Step (NOT Step 1 yet)
+        document.getElementById('step-0').classList.remove('active');
+        document.getElementById('step-verify').classList.add('active');
+        
+        // Reset Button
+        btn.innerHTML = originalText;
+        btn.classList.remove('opacity-80', 'cursor-not-allowed');
+
+    }, 800);
+}
+
+function simulateVerification() {
+    const btn = document.querySelector('#step-verify button');
+    
+    // Visual Feedback
+    btn.innerHTML = '<i class="ph ph-spinner animate-spin text-xl"></i> Verifying...';
+    btn.classList.add('bg-green-600', 'border-green-600');
+    btn.classList.remove('bg-blue-600');
+
+    setTimeout(() => {
+        btn.innerHTML = '<i class="ph ph-check-bold text-xl"></i> Verified!';
+        
+        setTimeout(() => {
+            // NOW we go to the Wizard (Step 1)
+            document.getElementById('step-verify').classList.remove('active');
+            
+            // Pre-fill Step 1 Data
+            const email = document.getElementById('inp-reg-email').value;
+            const emailField = document.getElementById('inp-email');
+            if(emailField) emailField.value = email;
+
+            goToStep(1);
+            
+            // Configure Step 2 (Logic from before)
+            configureStep2BasedOnGate();
+            
+        }, 800);
+    }, 1000);
+}
+
+function configureStep2BasedOnGate() {
+    const container = document.getElementById('integration-grid');
+    const search = document.getElementById('suite-search');
+    
+    if(userSoftwareChoice.type === 'supported') {
+        const initials = userSoftwareChoice.name.substring(0,2).toUpperCase();
+        
+        // Define color based on name (simple fallback)
+        let colorClass = 'bg-blue-600';
+        if(userSoftwareChoice.name.includes('Exact')) colorClass = 'bg-red-600';
+        if(userSoftwareChoice.name.includes('AFAS')) colorClass = 'bg-slate-800';
+        if(userSoftwareChoice.name.includes('Twinfield')) colorClass = 'bg-blue-600';
+        if(userSoftwareChoice.name.includes('Bill')) colorClass = 'bg-purple-600';
+        if(userSoftwareChoice.name.includes('JeFacture')) colorClass = 'bg-green-600';
+        if(userSoftwareChoice.name.includes('Banqup')) colorClass = 'bg-indigo-600';
+
+        if(container) {
+            // IMPORTANT: Changed onclick to openIntegrationAuth
+            container.innerHTML = `
+                <div onclick="openIntegrationAuth('${userSoftwareChoice.name}', '${colorClass}', '${initials}')" 
+                     class="col-span-1 sm:col-span-2 lg:col-span-3 bg-blue-50 border-2 border-blue-500 p-8 rounded-xl cursor-pointer hover:bg-blue-100 transition-all flex flex-col items-center justify-center gap-4 group animate-pulse">
+                    <div class="w-16 h-16 ${colorClass} rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform">
+                        ${initials}
+                    </div>
+                    <div class="text-center">
+                        <h3 class="font-bold text-blue-900 text-xl">Connect to ${userSoftwareChoice.name}</h3>
+                        <p class="text-blue-600 text-sm">Click here to authorize the connection</p>
+                    </div>
+                </div>
+            `;
+        }
+        if(search) search.parentElement.classList.add('hidden');
+    } 
+    else if (userSoftwareChoice.type === 'csv') {
+        if(container) container.classList.add('hidden');
+    }
+}
+
+// --- AUTH HANDSHAKE LOGIC ---
+
+let pendingIntegration = null;
+
+function openIntegrationAuth(name, colorClass, initials) {
+    pendingIntegration = { name, colorClass, initials };
+    
+    const modal = document.getElementById('integration-auth-modal');
+    const content = document.getElementById('auth-modal-content');
+    const title = document.getElementById('auth-title');
+    const logoBox = document.getElementById('auth-logo-box');
+    const urlBar = document.getElementById('auth-url-bar');
+    
+    // Configure Modal
+    title.innerText = `Log in to ${name}`;
+    logoBox.innerText = initials;
+    
+    // Reset classes
+    logoBox.className = `w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg mx-auto mb-4 transition-colors ${colorClass}`;
+    
+    // Fake URL
+    const safeName = name.toLowerCase().replace(/\s/g, '');
+    urlBar.innerText = `https://login.${safeName}.com/oauth/authorize?client_id=maxcredible`;
+
+    // Show
+    modal.classList.remove('hidden');
+    
+    // Animation trigger
+    setTimeout(() => {
+        content.classList.remove('scale-95', 'opacity-0');
+        content.classList.add('scale-100', 'opacity-100');
+    }, 10);
+}
+
+function closeAuthModal() {
+    const modal = document.getElementById('integration-auth-modal');
+    const content = document.getElementById('auth-modal-content');
+    
+    content.classList.remove('scale-100', 'opacity-100');
+    content.classList.add('scale-95', 'opacity-0');
+    
+    setTimeout(() => {
+        modal.classList.add('hidden');
+    }, 300);
+}
+
+function submitExternalAuth() {
+    const btn = document.getElementById('btn-auth-submit');
+    const originalText = btn.innerText;
+    
+    // 1. Loading State on Button
+    btn.innerHTML = '<i class="ph ph-spinner animate-spin"></i> Authorizing...';
+    btn.classList.add('opacity-80', 'cursor-not-allowed');
+    
+    setTimeout(() => {
+        // 2. Success State
+        btn.innerHTML = '<i class="ph ph-check-bold"></i> Success!';
+        btn.classList.replace('bg-blue-600', 'bg-green-600');
+        
+        setTimeout(() => {
+            // 3. Close Modal
+            closeAuthModal();
+            
+            // 4. Start the REAL Sync Simulation
+            if(pendingIntegration) {
+                startSyncSimulation(
+                    pendingIntegration.name, 
+                    pendingIntegration.colorClass, 
+                    pendingIntegration.initials
+                );
+            }
+            
+            // Reset button for next time
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('opacity-80', 'cursor-not-allowed');
+                btn.classList.replace('bg-green-600', 'bg-blue-600');
+            }, 500);
+            
+        }, 800);
+    }, 1500);
+}
+
+// 6. Close Dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdown = document.getElementById('gate-dropdown');
+    const input = document.getElementById('inp-software-gate');
+    const icon = document.querySelector('.ph-caret-down');
+    
+    // Check if the click was OUTSIDE the input and OUTSIDE the dropdown
+    if (dropdown && !dropdown.classList.contains('hidden')) {
+        const isClickInside = dropdown.contains(event.target) || 
+                              input.contains(event.target) || 
+                              (icon && icon.contains(event.target));
+                              
+        if (!isClickInside) {
+            dropdown.classList.add('hidden');
+        }
+    }
+});
+
+// 7. Toggle dropdown when clicking the arrow icon
+function toggleGateDropdown() {
+    const dropdown = document.getElementById('gate-dropdown');
+    const input = document.getElementById('inp-software-gate');
+    
+    if (dropdown.classList.contains('hidden')) {
+        filterSoftwareGate(input.value); // Open and filter
+        input.focus();
+    } else {
+        dropdown.classList.add('hidden'); // Close
     }
 }

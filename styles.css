@@ -593,3 +593,35 @@ nav {
 .badge-sms { background: #fce7f3; color: #9d174d; }
 .badge-call { background: #fef3c7; color: #92400e; }
 .badge-letter { background: #f1f5f9; color: #475569; }
+
+
+/* Ensure Step 0 feels like a distinct 'page' */
+#step-0 {
+    display: none; /* Default hidden until active class applied */
+}
+
+
+#step-0.active, #step-verify.active {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    opacity: 1 !important;
+}
+
+/* Ensure Dropdown sits on top of everything */
+#gate-dropdown {
+    position: absolute !important; /* Force floating */
+    top: 100%;                     /* Right below input */
+    left: 0; 
+    right: 0;
+    z-index: 999 !important;       /* Top layer */
+    margin-top: 8px;
+    background: white;
+    width: 100%;
+}
+
+/* Ensure the parent container holds the reference point */
+#step-0 form .relative.group {
+    position: relative !important;
+}

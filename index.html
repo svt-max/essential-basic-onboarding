@@ -87,7 +87,141 @@
 <div class="flex-1 relative w-full h-full bg-slate-50 overflow-hidden">
     <div id="wizard-container" class="w-full h-full overflow-y-auto relative z-0">
         <div class="flex flex-col items-center min-h-full w-full py-8">
-    <div id="step-1" class="step-panel active w-full max-w-2xl mt-8 px-6 pb-20">
+    
+        <div id="step-0" class="step-panel active w-full max-w-2xl mx-auto mt-16 px-6 pb-20 items-center">
+            <div class="bg-white p-10 rounded-2xl shadow-2xl border border-slate-200 text-center w-full relative z-10">
+                <div class="mb-6 flex justify-center">
+                    <img src="https://www.maxcredible.com/wp-content/uploads/2022/04/Logo-MaxCredible-nieuw.png" alt="MaxCredible" class="h-10 object-contain">
+                </div>
+                
+                <h1 class="text-3xl font-bold text-slate-900 mb-3">Get started with MaxCredible</h1>
+                <p class="text-slate-500 mb-8 text-base">Automate your debtor management in minutes.</p>
+
+                <form id="form-register" onsubmit="event.preventDefault(); handleRegistration();" class="text-left space-y-6">
+                    
+                    <div class="relative group z-30">
+    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Which accounting software do you use?</label>
+    
+    <div class="relative">
+        <i class="ph ph-magnifying-glass absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-lg"></i>
+        <input type="text" id="inp-software-gate" autocomplete="off" 
+            placeholder="e.g. Exact, Twinfield, Xero..." 
+            class="w-full pl-10 pr-4 py-3.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-medium text-slate-800 transition-shadow text-base"
+            oninput="filterSoftwareGate(this.value)"
+            onfocus="filterSoftwareGate(this.value)">
+        <i onclick="toggleGateDropdown()" class="ph ph-caret-down absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 cursor-pointer hover:text-blue-600 transition-colors p-1"></i>
+    </div>
+
+    <div id="gate-dropdown" class="hidden absolute top-full left-0 right-0 mt-2 bg-white border border-slate-200 rounded-xl shadow-2xl max-h-72 overflow-y-auto animate-fade-in-down" style="z-index: 100;">
+        <div class="p-2 text-xs font-bold text-slate-400 uppercase tracking-wider bg-slate-50 sticky top-0">Popular Integrations</div>
+        
+        <div class="divide-y divide-slate-50">
+            <div onclick="selectSoftwareGate('Exact Online', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-red-600 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">EO</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">Exact Online</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('Twinfield', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-blue-600 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">TF</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">Twinfield</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('AFAS', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-slate-800 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">AF</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">AFAS</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('Billtobox', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-purple-600 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">BB</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">Billtobox</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('JeFacture', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-green-600 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">JF</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">JeFacture</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('Banqup', 'supported')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-indigo-600 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">BQ</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">Banqup</span>
+                <span class="ml-auto text-[10px] font-bold bg-green-100 text-green-700 px-2 py-0.5 rounded-full">Instant</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('Xero', 'csv')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer flex items-center gap-3 group/item transition-colors">
+                <div class="w-9 h-9 bg-blue-400 rounded-lg text-white flex items-center justify-center font-bold text-xs shadow-sm">X</div>
+                <span class="font-medium text-slate-700 text-sm group-hover/item:text-blue-700">Xero</span>
+                <span class="ml-auto text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">CSV Only</span>
+            </div>
+
+            <div onclick="selectSoftwareGate('Other', 'csv')" class="gate-item px-4 py-3.5 hover:bg-blue-50 cursor-pointer text-sm text-slate-500 font-medium border-t border-slate-100 flex items-center gap-3">
+                <i class="ph ph-dots-three-circle text-xl text-slate-400"></i> Other / Custom ERP
+            </div>
+        </div>
+    </div>
+</div>
+
+                    <div class="space-y-4 relative z-20">
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Work Email</label>
+                            <input type="email" id="inp-reg-email" value="finance@maxcredible.com" placeholder="name@company.com" class="w-full p-3.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Password</label>
+                            <input type="password" value="demo1234" placeholder="Create a password" class="w-full p-3.5 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none font-medium">
+                        </div>
+                    </div>
+
+                    <div class="pt-2 relative z-10">
+                        <button type="submit" id="btn-register" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2 transform active:scale-95">
+                            Create Account <i class="ph ph-arrow-right"></i>
+                        </button>
+                        <p class="text-xs text-center text-slate-400 mt-4">By clicking above, you agree to our Terms & Conditions.</p>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="text-center mt-8 text-sm text-slate-500">
+                Already have an account? <a href="#" class="text-blue-600 font-bold hover:underline">Log in</a>
+            </div>
+        </div>
+
+    <div id="step-verify" class="step-panel w-full max-w-xl mx-auto mt-16 px-6 pb-20 items-center">
+        <div class="bg-white p-10 rounded-2xl shadow-2xl border border-slate-200 text-center w-full relative z-10 animate-slide-up">
+            
+            <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="ph ph-envelope-simple-open text-3xl"></i>
+            </div>
+
+            <h1 class="text-2xl font-bold text-slate-900 mb-3">Check your inbox</h1>
+            <p class="text-slate-500 mb-8 text-sm leading-relaxed">
+                We've sent a verification link to <strong id="verify-email-display" class="text-slate-800">finance@maxcredible.com</strong>.
+                Please click the link to secure your account.
+            </p>
+
+            <div class="space-y-4">
+                <button onclick="simulateVerification()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3.5 rounded-lg font-bold shadow-lg shadow-blue-500/30 transition-all flex items-center justify-center gap-2 group">
+                    <span>Simulate: Click Link</span>
+                    <i class="ph ph-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                </button>
+
+                <div class="text-xs text-slate-400">
+                    Didn't receive it? <button class="text-blue-600 font-bold hover:underline">Resend</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-8 text-sm text-slate-500">
+            <button onclick="goToStep(0)" class="text-slate-400 hover:text-slate-600 flex items-center gap-1 mx-auto">
+                <i class="ph ph-arrow-left"></i> Back to Register
+            </button>
+        </div>
+    </div>
+            <div id="step-1" class="step-panel w-full max-w-2xl mt-8 px-6 pb-20">
         <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100">
             <h1 class="text-3xl font-bold text-slate-900 mb-2">Let's set your foundation.</h1>
             <p class="text-slate-500 mb-8">We need your official organization details to verify your identity and set up your secure 2FA payments.</p>
@@ -1639,6 +1773,53 @@
                 </button>
             </div>
         </div>
-    </div> </div><script src="script.js"></script>
+    </div> </div>
+    <div id="integration-auth-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-xl shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0 animate-scale-in" id="auth-modal-content">
+            
+            <div class="bg-slate-100 border-b border-slate-200 px-4 py-2 flex items-center gap-2">
+                <div class="flex gap-1.5">
+                    <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                </div>
+                <div class="flex-1 text-center">
+                    <div class="bg-white rounded px-2 py-0.5 text-[10px] text-slate-500 border border-slate-200 font-mono truncate" id="auth-url-bar">
+                        https://login.exactonline.com/oauth/authorize
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <div id="auth-logo-box" class="w-16 h-16 rounded-xl flex items-center justify-center text-white font-bold text-2xl shadow-lg mx-auto mb-4 transition-colors">
+                        EO
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900" id="auth-title">Log in to Exact Online</h3>
+                    <p class="text-slate-500 text-xs mt-2">MaxCredible is requesting access to your administration.</p>
+                </div>
+
+                <form onsubmit="event.preventDefault(); submitExternalAuth();" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Username</label>
+                        <input type="text" value="admin@company.com" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm font-medium bg-slate-50">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Password</label>
+                        <input type="password" value="password123" class="w-full p-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none text-sm font-medium bg-slate-50">
+                    </div>
+                    
+                    <button type="submit" id="btn-auth-submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg shadow-md transition-all mt-4">
+                        Allow Access
+                    </button>
+                </form>
+                
+                <div class="text-center mt-6">
+                    <button onclick="closeAuthModal()" class="text-slate-400 text-xs hover:text-slate-600">Cancel and go back</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
