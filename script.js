@@ -227,19 +227,20 @@ const app = {
         updateTopNav: (stepIndex) => {
             document.querySelectorAll('.nav-item').forEach(btn => {
                 const step = parseInt(btn.getAttribute('data-step'));
-                const badge = btn.querySelector('.step-badge');
-                btn.classList.remove('text-blue-600', 'bg-blue-50');
-                btn.classList.add('text-slate-400');
-                badge.classList.remove('bg-blue-600', 'text-white');
-                badge.classList.add('bg-slate-100');
-                badge.innerHTML = step;
-
+                const icon = btn.querySelector('.step-icon');
+                
+                // Reset all to Base State (Inactive)
+                btn.className = "nav-item group relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 text-slate-400 hover:bg-slate-50 cursor-pointer";
+                icon.classList.remove('text-blue-600', 'text-white');
+                
                 if (step === stepIndex) {
-                    btn.classList.add('text-blue-600', 'bg-blue-50');
-                    badge.classList.add('bg-blue-600', 'text-white');
+                    // ACTIVE STATE: Dark Pill, White Text
+                    btn.className = "nav-item relative px-6 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 bg-slate-900 text-white shadow-md shadow-slate-200 scale-105";
+                    icon.classList.add('text-white');
                 } else if (step < stepIndex) {
-                    btn.classList.add('text-blue-600');
-                    badge.innerHTML = '<i class="ph ph-check-bold"></i>';
+                    // COMPLETED STATE: Blue Text, No Background
+                    btn.className = "nav-item relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 text-blue-600 bg-blue-50/50";
+                    icon.classList.add('text-blue-600');
                 }
             });
         },

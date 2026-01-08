@@ -20,21 +20,32 @@
             <img src="https://www.maxcredible.com/wp-content/uploads/2022/04/Logo-MaxCredible-nieuw.png" alt="MaxCredible" class="h-8 object-contain">
         </div>
 
-        <nav class="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2 h-full" id="main-nav">
-            <button onclick="app.nav.goToStep(1)" class="nav-item group flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50/50" data-step="1">
-                <span class="step-badge w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-colors">1</span> Data import
+        <nav class="hidden lg:flex items-center absolute left-1/2 -translate-x-1/2 bg-white/80 backdrop-blur-md border border-slate-200 p-1.5 rounded-full shadow-sm gap-1 z-50" id="main-nav">
+            
+            <button onclick="app.nav.goToStep(1)" class="nav-item group relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 hover:bg-slate-50 text-slate-400" data-step="1">
+                <i class="ph ph-database text-lg step-icon transition-colors"></i>
+                <span class="tracking-wide">Import</span>
+                </button>
+            
+            <div class="w-px h-4 bg-slate-200/50"></div>
+            
+            <button onclick="app.nav.goToStep(2)" class="nav-item group relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 hover:bg-slate-50 text-slate-400" data-step="2">
+                <i class="ph ph-sliders-horizontal text-lg step-icon transition-colors"></i>
+                <span class="tracking-wide">Settings</span>
             </button>
-            <div class="w-4 h-px bg-slate-200"></div>
-            <button onclick="app.nav.goToStep(2)" class="nav-item group flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50/50" data-step="2">
-                <span class="step-badge w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-colors">2</span> General
+
+            <div class="w-px h-4 bg-slate-200/50"></div>
+
+            <button onclick="app.nav.goToStep(3)" class="nav-item group relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 hover:bg-slate-50 text-slate-400" data-step="3">
+                <i class="ph ph-git-branch text-lg step-icon transition-colors"></i>
+                <span class="tracking-wide">Journey</span>
             </button>
-            <div class="w-4 h-px bg-slate-200"></div>
-            <button onclick="app.nav.goToStep(3)" class="nav-item group flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50/50" data-step="3">
-                <span class="step-badge w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-colors">3</span> Journey
-            </button>
-            <div class="w-4 h-px bg-slate-200"></div>
-            <button onclick="app.nav.goToStep(4)" class="nav-item group flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-400 hover:text-blue-600 transition-colors rounded-lg hover:bg-blue-50/50" data-step="4">
-                <span class="step-badge w-6 h-6 rounded-full bg-slate-100 group-hover:bg-blue-100 flex items-center justify-center transition-colors">4</span> Review
+
+            <div class="w-px h-4 bg-slate-200/50"></div>
+
+            <button onclick="app.nav.goToStep(4)" class="nav-item group relative px-5 py-2.5 rounded-full flex items-center gap-2 text-xs font-bold transition-all duration-300 hover:bg-slate-50 text-slate-400" data-step="4">
+                <i class="ph ph-rocket-launch text-lg step-icon transition-colors"></i>
+                <span class="tracking-wide">Launch</span>
             </button>
         </nav>
         
